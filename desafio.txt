@@ -1,0 +1,49 @@
+- pages/_document (OK)
+  importar a fonte Inter de Google fonts com os tamanhos Regular, Semi-bold e Bold
+
+- pages/index.tsx
+  * renderizar todos os posts da paginação
+  * exibir o botão carregar mais posts, caso existam mais posts a serem carregados.
+  Caso contrário, o botão não eve ser renderizado.
+                  * Exportar logo spacetraveling e salvar na postas Public (OK)
+                  * O logo de ter alt = logo
+  * Ao clicar no post, é preciso navegar para a página do post seguind o formato
+  /post/slugDoPost onde slugDoPost é referente ao valor retornado pelo Prismic
+  * A página eve ser gerada estaticamente. Isso significa que você deve utilizar a 
+  getStaticProps para buscar os dados do Prismic e popular a sua prop PostPagination.
+  Nesse método, é obrigatório utilizar a query do Prismic
+
+  - pages/homes.module.scss
+    * implementar estilização da página principal
+
+  - pages/post/[slug].tsx
+    * Renderizar toda a informação do post e o componenet Header
+    * Calcular manualmente o tempo estimado de leitura(calcular todas as palavras dentro do post, dividir pela média de palavras que um ser humano lê por minuto e arredondar para cima)
+
+    leitura por minuto por humano: 200 palavras/min
+    * Iterar no array da propriedade content para buscar a quantidade de palavras de cada seção
+    (heading e body)
+
+    obs: Para calcular o tempo estimado de leitura, sugerimos utilizar o método reduce para iterar o array content, o método PrismicDOM.RichText.asText para obter todo o texto do body e utilizar o método split com uma regex para gerar um array de palavras.
+
+    A sua página deve ser gerada estaticamente. Isso significa que você deve utilizar o `getStaticProps` para buscar os dados do Prismic e popular a sua prop `post` exatamente como deixamos na estrutura de interfaces. Nesse método é obrigatório utilizar o [getByUID](https://prismic.io/docs/technologies/query-helper-functions-javascript#getbyuid) do Prismic.
+
+    Além disso, você deve utilizar o `getStaticPaths` para gerar as páginas estáticas de alguns posts e setar o `fallback` como `true` para que o restante seja gerado no momento da requisição. Nesse método é obrigatório utilizar o [query](https://prismic.io/docs/technologies/query-a-single-type-document-javascript) do Prismic.
+
+    Por fim, nos casos que cairem no `fallback`, é **obrigatório** que você renderize pelo menos um texto na tela dizendo `Carregando...` para que o teste consiga verificar esses casos corretamente.
+
+    - posts/post.module.scss
+      * implementar estilização da página post
+
+    - components/Header/index.tsx
+      *Nesse arquivo você deve renderizar a logo spacetraveling, ela deve receber alt como 'logo'. 
+      * Por fim, ao clicar na logo é preciso navegar para a página principal /.
+
+      - components/Header/header.module.scss
+      Nesse arquivo você deve implementar toda a estilização do Header da aplicação.
+
+      - styles/global.scss (OK)
+       Nesse arquivo você deve implementar toda a estilização global da sua aplicação (ex.: variáveis das cores do seu projeto).
+
+      - styles/common.module.scss
+        * Nesse arquivo você deve implementar toda a estilização comum entre os arquivos das suas páginas (ex.: largura máxima).
